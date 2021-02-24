@@ -21,6 +21,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setTitle("PacMan");
         stage.show();
+        System.out.println("hei");
     }
 
     public static void main(String[] args) {
