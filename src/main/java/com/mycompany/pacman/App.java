@@ -32,6 +32,7 @@ public class App extends Application {
         
         /* Selveste Pac-Man figuren*/
         Arc pacman = new Arc(50, 100, 25, 25, 15, 300);
+        //Arc pacman = new Arc(100, 200, 50, 50, 30, 300);
         pacman.setStroke(Color.BLACK);
         pacman.setFill(Color.YELLOW);
         pacman.setType(ArcType.ROUND);
@@ -42,9 +43,9 @@ public class App extends Application {
         Timeline gaping = new Timeline();
         gaping.setCycleCount(Timeline.INDEFINITE);
         gaping.setAutoReverse(true);
-        KeyValue vinkel = new KeyValue(pacman.startAngleProperty(), 0); 
+        KeyValue vinkel = new KeyValue(pacman.startAngleProperty(), 20);
         KeyValue bue = new KeyValue(pacman.lengthProperty(), 360); 
-        KeyFrame kf = new KeyFrame(Duration.millis(500), vinkel, bue); 
+        KeyFrame kf = new KeyFrame(Duration.millis(300), vinkel, bue); 
         gaping.getKeyFrames().add(kf); 
         
         
