@@ -1,11 +1,20 @@
 package com.mycompany.pacman;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.ParallelTransition;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 /**
@@ -15,13 +24,38 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
-        Pane root = new Pane(); 
-        root.setStyle("-fx-background-color: black;");
-        Scene scene = new Scene(root); 
+        Group root = new Group();
+        Scene scene = new Scene(root, 800, 300); 
         stage.setScene(scene);
-        stage.setTitle("PacMan");
+        stage.setTitle("Pac-Man");
+        
+        
+        /* Selveste Pac-Man figuren*/
+        Arc pacman = new Arc(50, 100, 25, 25, 15, 300);
+        pacman.setStroke(Color.BLACK);
+        pacman.setFill(Color.YELLOW);
+        pacman.setType(ArcType.ROUND);
+        root.getChildren().add(pacman); 
+        
+        
+        /* Gaping */
+        Timeline gaping = new Timeline();
+        gaping.setCycleCount(Timeline.INDEFINITE);
+        gaping.setAutoReverse(true);
+        KeyValue vinkel = new KeyValue(pacman.startAngleProperty(), 0); 
+        KeyValue bue = new KeyValue(pacman.lengthProperty(), 360); 
+        KeyFrame kf = new KeyFrame(Duration.millis(500), vinkel, bue); 
+        gaping.getKeyFrames().add(kf); 
+        
+        
+        /* Utførelse av åpning og lukking av munn */
+        ParallelTransition animasjon = new ParallelTransition(); 
+        animasjon.getChildren().add(gaping); 
+        
+        
+        /* Start av animasjon og show */
         stage.show();
-        System.out.println("hei");
+        animasjon.play();
     }
 
     public static void main(String[] args) {
