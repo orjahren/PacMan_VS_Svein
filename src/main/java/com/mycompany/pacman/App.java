@@ -17,14 +17,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws FileNotFoundException {
-        /* Testing av figurer skjer her */
         Pane root = new Pane(); 
         root.setStyle("-fx-background-color: black;");
-        
-        /* Ghost superklasse */
-        String path = "C:\\Users\\Mats Engesund\\Documents\\NetBeansProjects\\PacMan\\src\\main\\java\\com\\mycompany\\pacman\\blue.png";
-        Ghost red = new Ghost(path);
-        root.getChildren().add(red.getImageView());
         
         
         /* Scene-oppsett */
