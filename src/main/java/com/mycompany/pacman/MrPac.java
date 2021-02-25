@@ -9,6 +9,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
@@ -37,21 +38,22 @@ public class MrPac {
     
     
     protected Arc pacman; 
-    protected Timeline gaping; 
     protected ParallelTransition animation; 
-    //protected SequentialTransition moving; 
+    protected RotateTransition counterclockwise;
+    protected RotateTransition clockwise;
     
     
     public MrPac() {
         setMrPac();
         setMovement();
-        setGaping();
+        //setGaping();
         setAnimation();
     }
     
     
-    public void setGaping() {
-        gaping = new Timeline(); 
+    public void setAnimation() {     
+        /* Gaping */
+        Timeline gaping = new Timeline(); 
         gaping.setCycleCount(Timeline.INDEFINITE);
         gaping.setAutoReverse(true);
         
@@ -60,14 +62,8 @@ public class MrPac {
         
         KeyFrame kf = new KeyFrame(Duration.millis(200), angle, bow);
         gaping.getKeyFrames().add(kf);
-    }
-    
-    public Timeline getGaping() {
-        return gaping; 
-    }
-    
-    
-    public void setAnimation() {
+        
+        /* Animasjon stuff */
         animation = new ParallelTransition(); 
         animation.getChildren().add(gaping); 
     }
@@ -87,6 +83,7 @@ public class MrPac {
                     pacman.setCenterY(pacman.getCenterY() - 10);
                     break; 
                 case LEFT: 
+                    
                     pacman.setCenterX(pacman.getCenterX() - 10);
                     break; 
                 case RIGHT: 

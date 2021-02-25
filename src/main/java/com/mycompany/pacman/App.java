@@ -40,11 +40,10 @@ public class App extends Application {
         
         MrPac pacman = new MrPac();
         root.getChildren().add(pacman.getMrPac());
-        pacman.startAnimation();
         pacman.setMovement();
 
         
-        //pacman.startAnimation();
+        pacman.startAnimation();
         stage.show();
     }
     
