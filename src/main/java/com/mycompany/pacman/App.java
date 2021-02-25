@@ -1,13 +1,10 @@
 package com.mycompany.pacman;
 
-<<<<<<< HEAD
 import java.io.FileNotFoundException;
-=======
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
->>>>>>> mrpac
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -27,7 +24,6 @@ import javafx.util.Duration;
 public class App extends Application {
 
     @Override
-<<<<<<< HEAD
     public void start(Stage stage) throws FileNotFoundException {
         Pane root = new Pane(); 
         root.setStyle("-fx-background-color: black;");
@@ -35,11 +31,9 @@ public class App extends Application {
         
         /* Scene-oppsett */
         Scene scene = new Scene(root, 500, 500); 
-=======
-    public void start(Stage stage) {
+    /*public void start(Stage stage) {
         Group root = new Group();
         Scene scene = new Scene(root, 800, 300); 
->>>>>>> mrpac
         stage.setScene(scene);
         stage.setTitle("Pac-Man");
         
@@ -49,7 +43,7 @@ public class App extends Application {
         pacman.startAnimation();
        
  
-        stage.show();
+        stage.show();*/
     }
 
     public static void main(String[] args) {
