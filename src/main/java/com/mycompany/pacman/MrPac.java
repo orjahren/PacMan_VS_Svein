@@ -8,10 +8,14 @@ package com.mycompany.pacman;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
+import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.util.Duration;
 
 /**
@@ -74,6 +78,25 @@ public class MrPac {
     
     public void startAnimation() {
         animation.play();
+    }
+    
+    
+    public void moveLeft() {
+        Path leftPath = new Path();
+        leftPath.getElements().add(new MoveTo(700, 200));
+        leftPath.getElements().add(new LineTo(100, 200)); 
+        PathTransition leftMove = new PathTransition();
+        leftMove.setPath(leftPath);
+        leftMove.setNode(pacman);
+        leftMove.setDuration(Duration.millis(2000));
+   }
+    
+    
+    public void moveRight() {
+        Path rightPath = new Path(); 
+        rightPath.getElements().add(new MoveTo(100, 200)); 
+        rightPath.getElements().add(new LineTo(700, 200)); 
+        PathTransition rightMove = new PathTransition(); 
     }
     
 }
