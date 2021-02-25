@@ -9,7 +9,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
+import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
@@ -35,24 +39,14 @@ public class MrPac {
     protected Arc pacman; 
     protected Timeline gaping; 
     protected ParallelTransition animation; 
+    //protected SequentialTransition moving; 
     
     
     public MrPac() {
         setMrPac();
-        setGaping(); 
-        setAnimation(); 
-    }
-    
-    
-    public void setMrPac() {
-        pacman = new Arc(50, 100, 25, 25, 15, 300); 
-        pacman.setStroke(Color.BLACK);
-        pacman.setFill(Color.YELLOW);
-        pacman.setType(ArcType.ROUND);
-    }
-    
-    public Arc getMrPac() {
-        return pacman; 
+        setMovement();
+        setGaping();
+        setAnimation();
     }
     
     
@@ -60,10 +54,12 @@ public class MrPac {
         gaping = new Timeline(); 
         gaping.setCycleCount(Timeline.INDEFINITE);
         gaping.setAutoReverse(true);
-        KeyValue vinkel = new KeyValue(pacman.startAngleProperty(), 11); 
-        KeyValue bue = new KeyValue(pacman.lengthProperty(), 360); 
-        KeyFrame kf = new KeyFrame(Duration.millis(300), vinkel, bue); 
-        gaping.getKeyFrames().add(kf); 
+        
+        KeyValue angle = new KeyValue(pacman.startAngleProperty(), 10); 
+        KeyValue bow = new KeyValue(pacman.lengthProperty(), 360); 
+        
+        KeyFrame kf = new KeyFrame(Duration.millis(200), angle, bow);
+        gaping.getKeyFrames().add(kf);
     }
     
     public Timeline getGaping() {
@@ -81,22 +77,37 @@ public class MrPac {
     }
     
     
-    public void moveLeft() {
-        Path leftPath = new Path();
-        leftPath.getElements().add(new MoveTo(700, 200));
-        leftPath.getElements().add(new LineTo(100, 200)); 
-        PathTransition leftMove = new PathTransition();
-        leftMove.setPath(leftPath);
-        leftMove.setNode(pacman);
-        leftMove.setDuration(Duration.millis(2000));
-   }
+    public void setMovement() {
+        pacman.setOnKeyPressed(e -> {
+            switch(e.getCode()) {
+                case DOWN: 
+                    pacman.setCenterY(pacman.getCenterY() + 10);
+                    break; 
+                case UP: 
+                    pacman.setCenterY(pacman.getCenterY() - 10);
+                    break; 
+                case LEFT: 
+                    pacman.setCenterX(pacman.getCenterX() - 10);
+                    break; 
+                case RIGHT: 
+                    pacman.setCenterX(pacman.getCenterX() + 10);
+                    break; 
+            }
+        });
+        
+        pacman.requestFocus();
+    }
     
     
-    public void moveRight() {
-        Path rightPath = new Path(); 
-        rightPath.getElements().add(new MoveTo(100, 200)); 
-        rightPath.getElements().add(new LineTo(700, 200)); 
-        PathTransition rightMove = new PathTransition(); 
+    public void setMrPac() {
+        pacman = new Arc(50, 100, 25, 25, 15, 300); 
+        pacman.setStroke(Color.BLACK);
+        pacman.setFill(Color.YELLOW);
+        pacman.setType(ArcType.ROUND);
+    }
+    
+    public Arc getMrPac() {
+        return pacman; 
     }
     
 }

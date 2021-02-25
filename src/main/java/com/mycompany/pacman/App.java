@@ -6,9 +6,12 @@ import javafx.animation.KeyValue;
 import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -30,9 +33,6 @@ public class App extends Application {
         
         
         /* Scene-oppsett */
-        Scene scene = new Scene(root, 500, 500); 
-    /*public void start(Stage stage) {
-        Group root = new Group();
         Scene scene = new Scene(root, 800, 300); 
         stage.setScene(scene);
         stage.setTitle("Pac-Man");
@@ -41,10 +41,13 @@ public class App extends Application {
         MrPac pacman = new MrPac();
         root.getChildren().add(pacman.getMrPac());
         pacman.startAnimation();
-       
- 
-        stage.show();*/
+        pacman.setMovement();
+
+        
+        //pacman.startAnimation();
+        stage.show();
     }
+    
 
     public static void main(String[] args) {
         launch();
