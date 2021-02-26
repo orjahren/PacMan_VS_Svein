@@ -17,6 +17,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -41,7 +42,7 @@ public class App extends Application {
         MrPac pacman = new MrPac();
         root.getChildren().add(pacman.getMrPac());
         pacman.setMovement();
-
+        
         
         pacman.startAnimation();
         stage.show();

@@ -51,7 +51,7 @@ public class MrPac {
     }
     
     
-    public void setAnimation() {     
+    private void setAnimation() {     
         /* Gaping */
         Timeline gaping = new Timeline(); 
         gaping.setCycleCount(Timeline.INDEFINITE);
@@ -68,12 +68,12 @@ public class MrPac {
         animation.getChildren().add(gaping); 
     }
     
-    public void startAnimation() {
+    protected void startAnimation() {
         animation.play();
     }
     
     
-    public void setMovement() {
+    protected void setMovement() {
         pacman.setOnKeyPressed(e -> {
             switch(e.getCode()) {
                 case DOWN: 
@@ -99,14 +99,14 @@ public class MrPac {
     }
     
     
-    public void setMrPac() {
+    private void setMrPac() {
         pacman = new Arc(50, 100, 25, 25, 15, 300); 
         pacman.setStroke(Color.BLACK);
         pacman.setFill(Color.YELLOW);
         pacman.setType(ArcType.ROUND);
     }
     
-    public Arc getMrPac() {
+    protected Arc getMrPac() {
         return pacman; 
     }
     
