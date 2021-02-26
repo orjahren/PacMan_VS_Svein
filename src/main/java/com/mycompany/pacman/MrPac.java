@@ -77,16 +77,19 @@ public class MrPac {
         pacman.setOnKeyPressed(e -> {
             switch(e.getCode()) {
                 case DOWN: 
+                    pacman.setRotate(90);
                     pacman.setCenterY(pacman.getCenterY() + 10);
                     break; 
                 case UP: 
+                    pacman.setRotate(-90);
                     pacman.setCenterY(pacman.getCenterY() - 10);
                     break; 
                 case LEFT: 
-                    
+                    pacman.setRotate(-180);
                     pacman.setCenterX(pacman.getCenterX() - 10);
                     break; 
                 case RIGHT: 
+                    pacman.setRotate(0);
                     pacman.setCenterX(pacman.getCenterX() + 10);
                     break; 
             }
