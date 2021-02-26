@@ -42,9 +42,17 @@ public class App extends Application {
         MrPac pacman = new MrPac();
         root.getChildren().add(pacman.getMrPac());
         pacman.setMovement();
+        System.out.println(pacman.getMrPac().getCenterX() + "\n" + pacman.getMrPac().getCenterY());
+        
+        
+        String path = "C:\\Users\\mjoen\\OneDrive\\Dokumenter\\NetBeansProjects\\PacMan_VS_Svein\\src\\main\\java\\com\\mycompany\\pacman\\red.png";
+        double xpos = 80.0, ypos = 200.0; 
+        Ghost red = new Ghost(path, xpos, ypos);
+        root.getChildren().add(red.getImageView());
         
         
         pacman.startAnimation();
+        red.chase(pacman);
         stage.show();
     }
     

@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Arc;
 
 /**
  *
@@ -28,32 +29,49 @@ public class Ghost {
     */
     
     protected String path; 
+    protected double xpos, ypos; 
     protected Image image; 
     protected FileInputStream stream; 
     protected ImageView view;
-    protected final int SIZE = 25; // alle blir like store 
+    protected final int SIZE = 50; // alle blir like store 
 
     
-    public Ghost(String path) throws FileNotFoundException {
-        this.path = path; 
-        stream = new FileInputStream(path); 
-        image = new Image(stream); 
+    public Ghost(String path, double xpos, double ypos) throws FileNotFoundException {
+        this.path   = path; 
+        this.xpos   = xpos; 
+        this.ypos   = ypos;
+        stream      = new FileInputStream(path); 
+        image       = new Image(stream); 
+        
         setImageView(SIZE, SIZE);
     }
     
     
-    public ImageView getImageView() {
+    protected ImageView getImageView() {
         return view; 
     }
     
-    public void setImageView(double sizeX, double sizeY) {
+    
+    private void setImageView(double sizeX, double sizeY) {
         view = new ImageView(getImage());
         view.setFitHeight(SIZE);
         view.setFitWidth(SIZE);
+        view.setX(xpos);
+        view.setY(ypos);
     }
     
-    public Image getImage() {
+    
+    protected Image getImage() {
         return image; 
     }
+    
+    
+    protected void chase(MrPac pacman) {
+        int en = 1; 
+        while(en < 10) {
+            view.setX(view.getX() + 10);
+            view.setY(view.getY() + 10);
+        }
+    } 
     
 }
