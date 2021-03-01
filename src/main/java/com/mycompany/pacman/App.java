@@ -1,5 +1,6 @@
 package com.mycompany.pacman;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -10,6 +11,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -26,7 +29,15 @@ import javafx.util.Duration;
  * JavaFX App
  */
 public class App extends Application {
+    
+    String[] paths = {
+        "C:\\Users\\mjoen\\OneDrive\\Dokumenter\\NetBeansProjects\\PacMan_VS_Svein\\src\\main\\java\\com\\mycompany\\pacman\\red.png", 
+        "C:\\Users\\mjoen\\OneDrive\\Dokumenter\\NetBeansProjects\\PacMan_VS_Svein\\src\\main\\java\\com\\mycompany\\pacman\\blue.png", 
+        "C:\\Users\\mjoen\\OneDrive\\Dokumenter\\NetBeansProjects\\PacMan_VS_Svein\\src\\main\\java\\com\\mycompany\\pacman\\green.png",
+        "C:\\Users\\mjoen\\OneDrive\\Dokumenter\\NetBeansProjects\\PacMan_VS_Svein\\src\\main\\java\\com\\mycompany\\pacman\\yellow.png"
+    };
 
+    
     @Override
     public void start(Stage stage) throws FileNotFoundException {
         Pane root = new Pane(); 
@@ -42,17 +53,16 @@ public class App extends Application {
         MrPac pacman = new MrPac();
         root.getChildren().add(pacman.getMrPac());
         pacman.setMovement();
+        pacman.startAnimation();
         System.out.println(pacman.getMrPac().getCenterX() + "\n" + pacman.getMrPac().getCenterY());
         
         
-        String path = "C:\\Users\\mjoen\\OneDrive\\Dokumenter\\NetBeansProjects\\PacMan_VS_Svein\\src\\main\\java\\com\\mycompany\\pacman\\red.png";
-        double xpos = 80.0, ypos = 200.0; 
-        Ghost red = new Ghost(path, xpos, ypos);
+        double xpos = 600.0, ypos = 200.0; 
+        Red red = new Red(paths[0], xpos, ypos);
         root.getChildren().add(red.getImageView());
+        //red.chase(pacman);
         
         
-        pacman.startAnimation();
-        red.chase(pacman);
         stage.show();
     }
     

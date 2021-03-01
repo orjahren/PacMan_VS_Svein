@@ -8,9 +8,17 @@ package com.mycompany.pacman;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import javafx.animation.ParallelTransition;
+import javafx.animation.PathTransition;
+import javafx.animation.SequentialTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Arc;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 /**
  *
@@ -52,7 +60,7 @@ public class Ghost {
     }
     
     
-    private void setImageView(double sizeX, double sizeY) {
+    protected void setImageView(double sizeX, double sizeY) {
         view = new ImageView(getImage());
         view.setFitHeight(SIZE);
         view.setFitWidth(SIZE);
@@ -66,12 +74,35 @@ public class Ghost {
     }
     
     
-    protected void chase(MrPac pacman) {
-        int en = 1; 
-        while(en < 10) {
-            view.setX(view.getX() + 10);
-            view.setY(view.getY() + 10);
-        }
-    } 
+    /*protected void chase(MrPac pacman) {
+        Rectangle rect = new Rectangle(100, 100); 
+        PathTransition trans = new PathTransition(); 
+        trans.setNode(getImageView());
+        trans.setDuration(Duration.seconds(3));
+        trans.setPath(rect);
+        trans.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        trans.setCycleCount(PathTransition.INDEFINITE);
+        trans.play();
+        
+        
+        double pacPosX = pacman.getMrPac().getCenterX(); 
+        double pacPosY = pacman.getMrPac().getCenterY(); 
+        
+        Path pacPath = new Path();
+        pacPath.getElements().add(new MoveTo(pacPosX, pacPosY)); 
+        pacPath.getElements().add(new LineTo(pacPosX, pacPosY)); 
+        
+        PathTransition move = new PathTransition(); 
+        move.setDuration(Duration.millis(2000));
+        move.setPath(pacPath);
+        move.setNode(view);
+        
+        SequentialTransition chase = new SequentialTransition(); 
+        chase.getChildren().add(move); 
+        
+        ParallelTransition animasjon = new ParallelTransition(); 
+        animasjon.getChildren().add(chase); 
+        animasjon.play();
+    }*/
     
 }

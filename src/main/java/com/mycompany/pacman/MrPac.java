@@ -73,6 +73,7 @@ public class MrPac {
     }
     
     
+    /* Flytte med piltasting */
     protected void setMovement() {
         pacman.setOnKeyPressed(e -> {
             switch(e.getCode()) {
