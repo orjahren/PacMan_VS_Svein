@@ -11,9 +11,11 @@ import java.io.FileNotFoundException;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.SequentialTransition;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Arc;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -42,6 +44,7 @@ public class Ghost {
     protected FileInputStream stream; 
     protected ImageView view;
     protected final int SIZE = 50; // alle blir like store 
+    static class Wrapper<T> { T value; }
 
     
     public Ghost(String path, double xpos, double ypos) throws FileNotFoundException {
@@ -75,34 +78,21 @@ public class Ghost {
     
     
     /*protected void chase(MrPac pacman) {
-        Rectangle rect = new Rectangle(100, 100); 
-        PathTransition trans = new PathTransition(); 
-        trans.setNode(getImageView());
-        trans.setDuration(Duration.seconds(3));
-        trans.setPath(rect);
-        trans.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        trans.setCycleCount(PathTransition.INDEFINITE);
-        trans.play();
-        
-        
-        double pacPosX = pacman.getMrPac().getCenterX(); 
-        double pacPosY = pacman.getMrPac().getCenterY(); 
-        
-        Path pacPath = new Path();
-        pacPath.getElements().add(new MoveTo(pacPosX, pacPosY)); 
-        pacPath.getElements().add(new LineTo(pacPosX, pacPosY)); 
-        
-        PathTransition move = new PathTransition(); 
-        move.setDuration(Duration.millis(2000));
-        move.setPath(pacPath);
-        move.setNode(view);
-        
-        SequentialTransition chase = new SequentialTransition(); 
-        chase.getChildren().add(move); 
-        
-        ParallelTransition animasjon = new ParallelTransition(); 
-        animasjon.getChildren().add(chase); 
-        animasjon.play();
+        pacman.setMovement();
+        pacman.getMrPac().setOnKeyPressed(e -> {
+            double pacPosX = pacman.getMrPac().getCenterX(); 
+            double pacPosY = pacman.getMrPac().getCenterY();
+
+            Rectangle rect = new Rectangle(300, 200); 
+            PathTransition trans = new PathTransition(); 
+            trans.setNode(getImageView());
+            trans.setDuration(Duration.seconds(3));
+
+            trans.setPath(new Line(view.getX(), view.getY(), pacPosX, pacPosY));
+            //trans.setPath(new Line(view.getX(), view.getY(), location.getX(), location.getY()));
+            trans.setCycleCount(PathTransition.INDEFINITE);
+            trans.play();
+        });
     }*/
     
 }

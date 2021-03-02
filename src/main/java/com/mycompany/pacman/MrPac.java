@@ -45,7 +45,7 @@ public class MrPac {
     
     public MrPac() {
         setMrPac();
-        setMovement();
+        //setMovement();
         //setGaping();
         setAnimation();
     }
@@ -73,6 +73,14 @@ public class MrPac {
     }
     
     
+    protected double getPosX() {
+        return pacman.getCenterX(); 
+    }
+    protected double getPosY() {
+        return pacman.getCenterY(); 
+    }
+    
+    
     /* Flytte med piltasting */
     protected void setMovement() {
         pacman.setOnKeyPressed(e -> {
@@ -80,18 +88,22 @@ public class MrPac {
                 case DOWN: 
                     pacman.setRotate(90);
                     pacman.setCenterY(pacman.getCenterY() + 10);
+                    //System.out.println("X: " + pacman.getCenterX() + " Y: " + pacman.getCenterY());
                     break; 
                 case UP: 
                     pacman.setRotate(-90);
                     pacman.setCenterY(pacman.getCenterY() - 10);
+                    //System.out.println("X: " + pacman.getCenterX() + " Y: " + pacman.getCenterY());
                     break; 
                 case LEFT: 
                     pacman.setRotate(-180);
                     pacman.setCenterX(pacman.getCenterX() - 10);
+                    //System.out.println("X: " + pacman.getCenterX() + " Y: " + pacman.getCenterY());
                     break; 
                 case RIGHT: 
                     pacman.setRotate(0);
                     pacman.setCenterX(pacman.getCenterX() + 10);
+                    //System.out.println("X: " + pacman.getCenterX() + " Y: " + pacman.getCenterY());                  
                     break; 
             }
         });

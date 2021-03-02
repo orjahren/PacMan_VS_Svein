@@ -6,7 +6,9 @@
 package com.mycompany.pacman;
 
 import java.io.FileNotFoundException;
-import javafx.scene.image.ImageView;
+import javafx.animation.PathTransition;
+import javafx.scene.shape.Line;
+import javafx.util.Duration;
 
 /**
  *
@@ -14,11 +16,24 @@ import javafx.scene.image.ImageView;
  */
 public class Red extends Ghost {
     
-    protected double xpos, ypos; 
+    /*
+        Kan være jeg surrer, men mener det er rød som er hard på gassen når det
+        kommer til å jage pacman. Gidder ikke sjekke nå, det er bestemt.
+    */
+    
+    
+    //protected double xpos, ypos; 
+    //protected double pacPosX, pacPosY;
     
     
     public Red(String path, double xpos, double ypos) throws FileNotFoundException {
         super(path, xpos, ypos); 
+    }
+    
+    
+    protected void chase(MrPac pacman) { 
+        double pacPosX = pacman.getPosX(); 
+        double pacPosY = pacman.getPosY();
     }
     
 }

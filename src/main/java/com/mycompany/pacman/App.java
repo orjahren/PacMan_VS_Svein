@@ -30,13 +30,22 @@ import javafx.util.Duration;
  */
 public class App extends Application {
     
-    String[] paths = {
+    /* Filsti til når du jobber på stasjonær */
+    /*String[] paths = {
         "C:\\Users\\mjoen\\OneDrive\\Dokumenter\\NetBeansProjects\\PacMan_VS_Svein\\src\\main\\java\\com\\mycompany\\pacman\\red.png", 
         "C:\\Users\\mjoen\\OneDrive\\Dokumenter\\NetBeansProjects\\PacMan_VS_Svein\\src\\main\\java\\com\\mycompany\\pacman\\blue.png", 
         "C:\\Users\\mjoen\\OneDrive\\Dokumenter\\NetBeansProjects\\PacMan_VS_Svein\\src\\main\\java\\com\\mycompany\\pacman\\green.png",
         "C:\\Users\\mjoen\\OneDrive\\Dokumenter\\NetBeansProjects\\PacMan_VS_Svein\\src\\main\\java\\com\\mycompany\\pacman\\yellow.png"
+    };*/
+    
+    /* Filsti til når du jobber på laptop */
+    String[] paths = {
+        "C:\\Users\\Mats Engesund\\Documents\\NetBeansProjects\\PacMan\\src\\main\\java\\com\\mycompany\\pacman\\red.png", 
+        "C:\\Users\\Mats Engesund\\Documents\\NetBeansProjects\\PacMan\\src\\main\\java\\com\\mycompany\\pacman\\blue.png",
+        "C:\\Users\\Mats Engesund\\Documents\\NetBeansProjects\\PacMan\\src\\main\\java\\com\\mycompany\\pacman\\green.png",
+        "C:\\Users\\Mats Engesund\\Documents\\NetBeansProjects\\PacMan\\src\\main\\java\\com\\mycompany\\pacman\\yellow.png"
     };
-
+    
     
     @Override
     public void start(Stage stage) throws FileNotFoundException {
@@ -52,18 +61,17 @@ public class App extends Application {
         
         MrPac pacman = new MrPac();
         root.getChildren().add(pacman.getMrPac());
-        pacman.setMovement();
-        pacman.startAnimation();
-        System.out.println(pacman.getMrPac().getCenterX() + "\n" + pacman.getMrPac().getCenterY());
-        
+                
         
         double xpos = 600.0, ypos = 200.0; 
         Red red = new Red(paths[0], xpos, ypos);
         root.getChildren().add(red.getImageView());
-        //red.chase(pacman);
         
         
         stage.show();
+        pacman.startAnimation();
+        red.chase(pacman);
+        pacman.setMovement();
     }
     
 
