@@ -34,6 +34,45 @@ public class Red extends Ghost {
     protected void chase(MrPac pacman) { 
         double pacPosX = pacman.getPosX(); 
         double pacPosY = pacman.getPosY();
+        
+        class Trad extends Thread {
+            double  pacPosX, pacPosY;
+            volatile boolean maalX, maalY;
+            static volatile int n = 0;
+            static volatile int id;
+            Trad(double pacPosX, double pacPosY) {
+                this.pacPosX = pacPosX;
+                this.pacPosY = pacPosY;
+                id = n++;
+            }
+            
+            public void run() {
+                volatile boolean harEndret = false;
+                if(xpos < this.pacPosX && !maalX) {
+                    xpos++;
+                    break;
+                }
+                //legg til tilsvarende i else-ifs for x2, y1, y2
+                
+                if(!harEndret) {
+                    final int SLEEP_TIME = 100;//endre til det du vil ha
+                    try{
+                        Thread.getCurrentThread().sleep(SLEEP_TIME);
+                        run();
+                    }catch(Exception e) {
+                        //hva vil du?
+                    }
+                }
+            }
+        }
+         Trad trad1 = new Trad(pacPosX, pacPosY);
+        trad1.start();
+
+        try {
+            trad1.join(); //metoden vil vente her til posisjonene er like
+        }catch(Exception e) {
+
+        }
     }
     
 }
