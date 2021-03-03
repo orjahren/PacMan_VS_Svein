@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package com.mycompany.pacman;
-
+ 
 import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -16,143 +16,184 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
-
+ 
 import java.util.ArrayList;
-
+ 
 /**
  *
  * @author mjoen
  */
 public class MrPac {
-    
+ 
     /*
         Dette er klassen til selve Pac-Man figuren. Vet ikke helt om det skal 
         være et bibliotek eller objekt. Vanskelig å plasere et objekt i javafx
         da det kun finnes en størelse på pacman. Kan prøve å lage en getmetode 
         i konstruktøren
     */
-    
-    
+ 
+ 
     protected Arc pacman; 
     protected ParallelTransition animation; 
     protected RotateTransition counterclockwise;
     protected RotateTransition clockwise;
     protected Double speed;
-    
-    
+ 
+ 
     public MrPac() {
         setMrPac();
-        //setMovement();
-        //setGaping();
         setAnimation();
     }
-    
-    
+ 
+ 
     private void setAnimation() {     
         /* Gaping */
         Timeline gaping = new Timeline(); 
         gaping.setCycleCount(Timeline.INDEFINITE);
         gaping.setAutoReverse(true);
-        
+ 
         KeyValue angle = new KeyValue(pacman.startAngleProperty(), 10); 
         KeyValue bow = new KeyValue(pacman.lengthProperty(), 360); 
-        
+ 
         KeyFrame kf = new KeyFrame(Duration.millis(200), angle, bow);
         gaping.getKeyFrames().add(kf);
-        
+ 
         /* Animasjon stuff */
         animation = new ParallelTransition(); 
         animation.getChildren().add(gaping); 
     }
-    
+ 
     protected void startAnimation() {
         animation.play();
     }
-    
-    
+ 
+ 
     protected double getPosX() {
         return pacman.getCenterX(); 
     }
     protected double getPosY() {
         return pacman.getCenterY();
     }
-
+ 
     protected double getSpeed() {
         return speed;
     }
-
+ 
     protected void setSpeed(double speed) {
         this.speed = speed;
     }
-    
-    
+ 
+ 
     /* Flytte med piltasting */
     protected void setMovement() {
         ArrayList<String> input = new ArrayList<String>();
-
+ 
         pacman.setOnKeyPressed(e -> {
             String code = e.getCode().toString();
-
+ 
             input.clear();
             input.add(code);
         });
-
-        pacman.setOnKeyReleased(e -> {
-            String code = e.getCode().toString();
-
-            if (input.contains(code))
-                input.remove(code);
-        });
-
+ 
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
+                double pacX = pacman.getCenterX();
+                double pacY = pacman.getCenterY();
+ 
                 if (input.contains("LEFT")) {
-                    pacman.setRotate(-180);
-                    if(pacman.getCenterX() + getSpeed() + pacman.getRadiusX() > pacman.getRadiusX() * 2) { //bruk konstant
-                        pacman.setCenterX(pacman.getCenterX() - getSpeed());
+                    if (canWalk("LEFT")) {
+                        pacman.setCenterX(pacX - getSpeed());
+                        pacman.setRotate(-180);
                     }
-
                 }
-
+ 
                 if (input.contains("RIGHT")) {
-                    pacman.setRotate(0);
-                    if(pacman.getCenterX() + getSpeed() + pacman.getRadiusX() <= 800) { //bruk konstant
-                        pacman.setCenterX(pacman.getCenterX() + getSpeed());
-                    }
-
-                }
-
-                if (input.contains("DOWN")) {
-                    pacman.setRotate(90);
-                    //pacman.setCenterY(pacman.getCenterY() + getSpeed());
-                    if(pacman.getCenterY() + getSpeed() + pacman.getRadiusX() <= 300) { //bruk konstant
-                        pacman.setCenterY(pacman.getCenterY() + getSpeed());
+                    if (canWalk("RIGHT")) {
+                        pacman.setCenterX(pacX + getSpeed());
+                        pacman.setRotate(0);
                     }
                 }
-
+ 
                 if (input.contains("UP")) {
-                    pacman.setRotate(-90);
+                    if (canWalk("UP")) {
+                        pacman.setCenterY(pacY - getSpeed());
+                        pacman.setRotate(-90);
+                    }
+                }
+ 
+                if (input.contains("DOWN")) {
+                    if (canWalk("DOWN")) {
+                        pacman.setCenterY(pacY + getSpeed());
+                        pacman.setRotate(90);
+                    }
+                }
+ 
+                /*
+                                    pacman.setRotate(-90);
+                    //canWalk();
                     if(pacman.getCenterY() - getSpeed() - pacman.getRadiusX()>= 0) {
                         pacman.setCenterY(pacman.getCenterY() - getSpeed());
-                    }
-
-                }
+                 */
             }
         }.start();
-        
+ 
         pacman.requestFocus();
     }
-    
-    
+ 
+    public boolean canWalk(String code) {
+        double pacX = pacman.getCenterX();
+        double pacY = pacman.getCenterY();
+ 
+        double rectx1 = App.rect.getX();
+        double rectx2 = rectx1 + App.rect.getWidth();
+ 
+        double recty1 = App.rect.getY();
+        double recty2 = recty1 + App.rect.getHeight();
+ 
+        if (code.equals("LEFT")) {
+            if (pacX - pacman.getRadiusX() > 0) {
+                if ((pacY > recty1 && pacY < recty2)) {
+                    if (pacX - pacman.getRadiusX() > recty2) {
+                        return true;
+                    }
+                } else {
+                    return true;
+                }
+            }
+        } else if (code.equals("RIGHT")) {
+            if (pacX + pacman.getRadiusX() < App.SIZE_X) {
+                if ((pacY > recty1 && pacY < recty2)) {
+                    if (pacX + pacman.getRadiusX() < recty1) {
+                        return true;
+                    }
+                } else {
+                    return true;
+                }
+            }
+        } else if (code.equals("UP")) {
+            if (pacY - pacman.getRadiusY() > 0) {
+                return true;
+            }
+        } else if (code.equals("DOWN")) {
+            if (pacY + pacman.getRadiusY() < App.SIZE_Y) {
+                return true;
+            }
+        }
+ 
+        return false;
+    }
+ 
+ 
     private void setMrPac() {
         pacman = new Arc(50, 100, 25, 25, 15, 300); 
         pacman.setStroke(Color.BLACK);
         pacman.setFill(Color.YELLOW);
         pacman.setType(ArcType.ROUND);
     }
-    
+ 
     protected Arc getMrPac() {
         return pacman; 
     }
-    
+ 
 }
+ 
