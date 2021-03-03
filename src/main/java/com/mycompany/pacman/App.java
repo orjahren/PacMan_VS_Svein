@@ -29,21 +29,8 @@ import javafx.util.Duration;
  * JavaFX App
  */
 public class App extends Application {
-    
-    /* Filsti til når du jobber på stasjonær */
-    /*String[] paths = {
-        "C:\\Users\\mjoen\\OneDrive\\Dokumenter\\NetBeansProjects\\PacMan_VS_Svein\\src\\main\\java\\com\\mycompany\\pacman\\red.png", 
-        "C:\\Users\\mjoen\\OneDrive\\Dokumenter\\NetBeansProjects\\PacMan_VS_Svein\\src\\main\\java\\com\\mycompany\\pacman\\blue.png", 
-        "C:\\Users\\mjoen\\OneDrive\\Dokumenter\\NetBeansProjects\\PacMan_VS_Svein\\src\\main\\java\\com\\mycompany\\pacman\\green.png",
-        "C:\\Users\\mjoen\\OneDrive\\Dokumenter\\NetBeansProjects\\PacMan_VS_Svein\\src\\main\\java\\com\\mycompany\\pacman\\yellow.png"
-    };*/
-    
-    /* Filsti til når du jobber på laptop */
     String[] paths = {
-        "C:\\Users\\Mats Engesund\\Documents\\NetBeansProjects\\PacMan\\src\\main\\java\\com\\mycompany\\pacman\\red.png", 
-        "C:\\Users\\Mats Engesund\\Documents\\NetBeansProjects\\PacMan\\src\\main\\java\\com\\mycompany\\pacman\\blue.png",
-        "C:\\Users\\Mats Engesund\\Documents\\NetBeansProjects\\PacMan\\src\\main\\java\\com\\mycompany\\pacman\\green.png",
-        "C:\\Users\\Mats Engesund\\Documents\\NetBeansProjects\\PacMan\\src\\main\\java\\com\\mycompany\\pacman\\yellow.png"
+        "src/main/java/com/mycompany/pacman/red.png",
     };
     
     
@@ -60,6 +47,7 @@ public class App extends Application {
         
         
         MrPac pacman = new MrPac();
+        pacman.setSpeed(3);
         root.getChildren().add(pacman.getMrPac());
                 
         
