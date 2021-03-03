@@ -31,11 +31,4 @@ public class Red extends Ghost {
     public Red(String path, double xpos, double ypos) throws FileNotFoundException {
         super(path, xpos, ypos); 
     }
-    
-    
-    protected void chase(MrPac pacman) { 
-        double pacPosX = pacman.getPosX(); 
-        double pacPosY = pacman.getPosY();
-    }
-    
 }
