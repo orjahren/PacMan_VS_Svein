@@ -171,8 +171,14 @@ public class MrPac {
                 }
             }
         } else if (code.equals("UP")) {
-            if (pacY - pacman.getRadiusY() > 0) {
-                return true;
+            if (pacY + pacman.getRadiusY() >= 0) {
+                if ((pacX > rectx1 && pacX < rectx2)) {
+                    if (pacY + pacman.getRadiusX() < recty1) {
+                        return true;
+                    }
+                } else {
+                    return true;
+                }
             }
         } else if (code.equals("DOWN")) {
             if (pacY + pacman.getRadiusY() < App.SIZE_Y) {

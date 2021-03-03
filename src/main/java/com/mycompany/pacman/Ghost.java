@@ -49,18 +49,27 @@ public class Ghost {
         l.add(this);
     }
 
-    protected  Integer[] sjekkPos(Ghost s) {
-        Integer[] ut = new Integer[2];
-        boolean klarX, klarY;
+    protected  double[] sjekkPos(Ghost s) {
+        boolean klarX = false;
+        boolean klarY = false;
+        double kandX = s.xpos;
+        double kandY = s.ypos;
         for(Ghost g : l) {
-            /*
-            if(s.xpos + this.getSpeed()) {
 
+
+
+
+            if(s.xpos + this.getSpeed() != g.xpos && !klarX) {
+                kandX = g.xpos;
+                klarX = true;
             }
 
-             */
+            if(s.ypos + this.getSpeed() != g.ypos && !klarY) {
+                kandY = g.ypos;
+                klarX = true;
+            }
         }
-        return ut;
+        return new double[]{kandX, kandY};
     }
 
     protected double getSpeed() {
@@ -89,17 +98,17 @@ public class Ghost {
     
     protected void chase(MrPac pacman) {
         pacman.setMovement();
-
+        Ghost g = this;
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
                 double pacPosX = pacman.getMrPac().getCenterX();
                 double pacPosY = pacman.getMrPac().getCenterY();
 
-                double ghostX = view.getX();
-                double ghostY = view.getY();
+                double ghostX = sjekkPos(g)[0];//view.getX();
+                double ghostY = sjekkPos(g)[1];//view.getY();
 
-                double distanceX = Math.abs(pacPosX - view.getX());
-                double distanceY = Math.abs(pacPosY - view.getY());
+                double distanceX = Math.abs(pacPosX - ghostX);//view.getX());
+                double distanceY = Math.abs(pacPosY - ghostY);//view.getY());
 
                 if (distanceX > distanceY) {
                     if (ghostX > pacPosX) {

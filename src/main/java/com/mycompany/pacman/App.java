@@ -3,6 +3,7 @@ package com.mycompany.pacman;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -20,6 +21,8 @@ public class App extends Application {
         "src/main/java/com/mycompany/pacman/green.png", 
         "src/main/java/com/mycompany/pacman/yellow.png"
     };
+
+    static Rectangle rect;
         
     
     @Override

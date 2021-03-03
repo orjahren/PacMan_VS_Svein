@@ -8,6 +8,7 @@ package com.mycompany.pacman;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
@@ -33,7 +34,34 @@ public class MapStructure {
     public void genrateNewMap(){
         throw new NoSuchMethodError("Not suported jet");
     }
-    
+
+    public Object[] ekstractItemsFromMap(String path) {
+        LinkedList<MapItem> l = new LinkedList<>();
+        Scanner scanner = null;
+        int nLinjer = 0;
+
+        int ll = 0;
+        try {
+            scanner = new Scanner(new File(path));
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        while(scanner.hasNext()) {
+            ll++;
+            if(scanner.hasNext(",")){
+                nLinjer++;
+                scanner.next();
+                ll = 0;
+            }
+
+            String s = scanner.next();
+
+            l.add(new MapItem(s));
+        }
+
+        return new Object[]{l, nLinjer, i};
+    }
     
     
     /**
