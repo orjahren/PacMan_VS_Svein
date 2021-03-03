@@ -23,11 +23,6 @@ public class Red extends Ghost {
     */
     
     
-    //protected double xpos, ypos; 
-    //protected double pacPosX, pacPosY;
-    static class Wrapper<T> { T value; }
-    
-    
     public Red(String path, double xpos, double ypos) throws FileNotFoundException {
         super(path, xpos, ypos); 
     }

@@ -104,10 +104,8 @@ public class MrPac {
                 input.remove(code);
         });
 
-        new AnimationTimer()
-        {
-            public void handle(long currentNanoTime)
-            {
+        new AnimationTimer() {
+            public void handle(long currentNanoTime) {
                 if (input.contains("LEFT")) {
                     pacman.setRotate(-180);
                     pacman.setCenterX(pacman.getCenterX() - getSpeed());

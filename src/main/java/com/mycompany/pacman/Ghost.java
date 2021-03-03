@@ -46,7 +46,6 @@ public class Ghost {
     protected FileInputStream stream; 
     protected ImageView view;
     protected final int SIZE = 50; // alle blir like store 
-    static class Wrapper<T> { T value; }
 
     
     public Ghost(String path, double xpos, double ypos) throws FileNotFoundException {
@@ -82,10 +81,8 @@ public class Ghost {
     protected void chase(MrPac pacman) {
         pacman.setMovement();
 
-        new AnimationTimer()
-        {
-            public void handle(long currentNanoTime)
-            {
+        new AnimationTimer() {
+            public void handle(long currentNanoTime) {
                 double pacPosX = pacman.getMrPac().getCenterX();
                 double pacPosY = pacman.getMrPac().getCenterY();
 
@@ -98,13 +95,16 @@ public class Ghost {
                 if (distanceX > distanceY) {
                     if (ghostX > pacPosX) {
                         view.setX(ghostX - 1);
-                    } else {
+                    } 
+                    else {
                         view.setX(ghostX + 1);
                     }
-                } else {
+                } 
+                else {
                     if(ghostY > pacPosY) {
                         view.setY(ghostY - 1);
-                    } else {
+                    } 
+                    else {
                         view.setY(ghostY + 1);
                     }
                 }
