@@ -7,6 +7,7 @@ package com.mycompany.pacman;
 
 import java.io.FileNotFoundException;
 import javafx.animation.PathTransition;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
 
@@ -24,6 +25,7 @@ public class Red extends Ghost {
     
     //protected double xpos, ypos; 
     //protected double pacPosX, pacPosY;
+    static class Wrapper<T> { T value; }
     
     
     public Red(String path, double xpos, double ypos) throws FileNotFoundException {

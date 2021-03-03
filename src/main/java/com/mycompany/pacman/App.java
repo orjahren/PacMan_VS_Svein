@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -45,7 +46,7 @@ public class App extends Application {
         "C:\\Users\\Mats Engesund\\Documents\\NetBeansProjects\\PacMan\\src\\main\\java\\com\\mycompany\\pacman\\green.png",
         "C:\\Users\\Mats Engesund\\Documents\\NetBeansProjects\\PacMan\\src\\main\\java\\com\\mycompany\\pacman\\yellow.png"
     };
-    
+        
     
     @Override
     public void start(Stage stage) throws FileNotFoundException {
