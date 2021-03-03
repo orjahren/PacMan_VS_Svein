@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
+import java.util.LinkedList;
 /**
  *
  * @author Mats Engesund
@@ -35,6 +35,7 @@ public class Ghost {
     protected ImageView view;
     protected final int SIZE = 50; // alle blir like store 
 
+    protected static LinkedList<Ghost> l = new LinkedList<>();
     
     public Ghost(String path, double xpos, double ypos) throws FileNotFoundException {
         this.path   = path; 
@@ -44,6 +45,26 @@ public class Ghost {
         image       = new Image(stream); 
         
         setImageView(SIZE, SIZE);
+
+        l.add(this);
+    }
+
+    protected  Integer[] sjekkPos(Ghost s) {
+        Integer[] ut = new Integer[2];
+        boolean klarX, klarY;
+        for(Ghost g : l) {
+            /*
+            if(s.xpos + this.getSpeed()) {
+
+            }
+
+             */
+        }
+        return ut;
+    }
+
+    protected double getSpeed() {
+        return 1;
     }
     
     
@@ -82,18 +103,18 @@ public class Ghost {
 
                 if (distanceX > distanceY) {
                     if (ghostX > pacPosX) {
-                        view.setX(ghostX - 1);
+                        view.setX(ghostX - getSpeed());
                     } 
                     else {
-                        view.setX(ghostX + 1);
+                        view.setX(ghostX + getSpeed());
                     }
                 } 
                 else {
                     if(ghostY > pacPosY) {
-                        view.setY(ghostY - 1);
+                        view.setY(ghostY - getSpeed());
                     } 
                     else {
-                        view.setY(ghostY + 1);
+                        view.setY(ghostY + getSpeed());
                     }
                 }
             }
