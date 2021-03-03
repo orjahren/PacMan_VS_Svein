@@ -5,13 +5,7 @@
  */
 package com.mycompany.pacman;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.ParallelTransition;
-import javafx.animation.PathTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.SequentialTransition;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -22,6 +16,8 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -41,6 +37,7 @@ public class MrPac {
     protected ParallelTransition animation; 
     protected RotateTransition counterclockwise;
     protected RotateTransition clockwise;
+    protected Double speed;
     
     
     public MrPac() {
@@ -77,36 +74,61 @@ public class MrPac {
         return pacman.getCenterX(); 
     }
     protected double getPosY() {
-        return pacman.getCenterY(); 
+        return pacman.getCenterY();
+    }
+
+    protected double getSpeed() {
+        return speed;
+    }
+
+    protected void setSpeed(double speed) {
+        this.speed = speed;
     }
     
     
     /* Flytte med piltasting */
     protected void setMovement() {
+        ArrayList<String> input = new ArrayList<String>();
+
         pacman.setOnKeyPressed(e -> {
-            switch(e.getCode()) {
-                case DOWN: 
-                    pacman.setRotate(90);
-                    pacman.setCenterY(pacman.getCenterY() + 10);
-                    //System.out.println("X: " + pacman.getCenterX() + " Y: " + pacman.getCenterY());
-                    break; 
-                case UP: 
-                    pacman.setRotate(-90);
-                    pacman.setCenterY(pacman.getCenterY() - 10);
-                    //System.out.println("X: " + pacman.getCenterX() + " Y: " + pacman.getCenterY());
-                    break; 
-                case LEFT: 
-                    pacman.setRotate(-180);
-                    pacman.setCenterX(pacman.getCenterX() - 10);
-                    //System.out.println("X: " + pacman.getCenterX() + " Y: " + pacman.getCenterY());
-                    break; 
-                case RIGHT: 
-                    pacman.setRotate(0);
-                    pacman.setCenterX(pacman.getCenterX() + 10);
-                    //System.out.println("X: " + pacman.getCenterX() + " Y: " + pacman.getCenterY());                  
-                    break; 
-            }
+            String code = e.getCode().toString();
+
+            input.clear();
+            input.add(code);
         });
+
+        pacman.setOnKeyReleased(e -> {
+            String code = e.getCode().toString();
+
+            if (input.contains(code))
+                input.remove(code);
+        });
+
+        new AnimationTimer()
+        {
+            public void handle(long currentNanoTime)
+            {
+                if (input.contains("LEFT")) {
+                    pacman.setRotate(-180);
+                    pacman.setCenterX(pacman.getCenterX() - getSpeed());
+                }
+
+                if (input.contains("RIGHT")) {
+                    pacman.setRotate(0);
+                    pacman.setCenterX(pacman.getCenterX() + getSpeed());
+                }
+
+                if (input.contains("DOWN")) {
+                    pacman.setRotate(90);
+                    pacman.setCenterY(pacman.getCenterY() + getSpeed());
+                }
+
+                if (input.contains("UP")) {
+                    pacman.setRotate(-90);
+                    pacman.setCenterY(pacman.getCenterY() - getSpeed());
+                }
+            }
+        }.start();
         
         pacman.requestFocus();
     }

@@ -8,6 +8,8 @@ package com.mycompany.pacman;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+
+import javafx.animation.AnimationTimer;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.SequentialTransition;
@@ -77,22 +79,37 @@ public class Ghost {
     }
     
     
-    /*protected void chase(MrPac pacman) {
+    protected void chase(MrPac pacman) {
         pacman.setMovement();
-        pacman.getMrPac().setOnKeyPressed(e -> {
-            double pacPosX = pacman.getMrPac().getCenterX(); 
-            double pacPosY = pacman.getMrPac().getCenterY();
 
-            Rectangle rect = new Rectangle(300, 200); 
-            PathTransition trans = new PathTransition(); 
-            trans.setNode(getImageView());
-            trans.setDuration(Duration.seconds(3));
+        new AnimationTimer()
+        {
+            public void handle(long currentNanoTime)
+            {
+                double pacPosX = pacman.getMrPac().getCenterX();
+                double pacPosY = pacman.getMrPac().getCenterY();
 
-            trans.setPath(new Line(view.getX(), view.getY(), pacPosX, pacPosY));
-            //trans.setPath(new Line(view.getX(), view.getY(), location.getX(), location.getY()));
-            trans.setCycleCount(PathTransition.INDEFINITE);
-            trans.play();
-        });
-    }*/
+                double ghostX = view.getX();
+                double ghostY = view.getY();
+
+                double distanceX = Math.abs(pacPosX - view.getX());
+                double distanceY = Math.abs(pacPosY - view.getY());
+
+                if (distanceX > distanceY) {
+                    if (ghostX > pacPosX) {
+                        view.setX(ghostX - 1);
+                    } else {
+                        view.setX(ghostX + 1);
+                    }
+                } else {
+                    if(ghostY > pacPosY) {
+                        view.setY(ghostY - 1);
+                    } else {
+                        view.setY(ghostY + 1);
+                    }
+                }
+            }
+        }.start();
+    }
     
 }
